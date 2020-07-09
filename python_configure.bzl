@@ -153,7 +153,7 @@ def _symlink_genrule_for_dir(
 
 def _get_python_bin(repository_ctx):
     """Gets the python bin path."""
-    print("Debug: please make sure " +
+    _fail("Debug: please make sure " +
           "python is installed and add its directory in PATH, or --define " +
           "%s='/something/else'.\nPATH=%s\nenviron=%s" % (
               _PYTHON_BIN_PATH,
