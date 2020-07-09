@@ -153,6 +153,13 @@ def _symlink_genrule_for_dir(
 
 def _get_python_bin(repository_ctx):
     """Gets the python bin path."""
+    print("Debug: please make sure " +
+          "python is installed and add its directory in PATH, or --define " +
+          "%s='/something/else'.\nPATH=%s\nenviron=%s" % (
+              _PYTHON_BIN_PATH,
+              repository_ctx.os.environ.get("PATH", ""),
+              repository_ctx.os.environ,
+          ))
     python_bin = repository_ctx.os.environ.get(_PYTHON_BIN_PATH)
     if python_bin != None:
         return python_bin
@@ -164,9 +171,10 @@ def _get_python_bin(repository_ctx):
         return str(python_bin_path)
     _fail("Cannot find python in PATH, please make sure " +
           "python is installed and add its directory in PATH, or --define " +
-          "%s='/something/else'.\nPATH=%s" % (
+          "%s='/something/else'.\nPATH=%s\nenviron=%s" % (
               _PYTHON_BIN_PATH,
               repository_ctx.os.environ.get("PATH", ""),
+              repository_ctx.os.environ,
           ))
 
 def _get_bash_bin(repository_ctx):
