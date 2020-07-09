@@ -156,14 +156,10 @@ def _get_python_bin(repository_ctx):
     python_bin = repository_ctx.os.environ.get(_PYTHON_BIN_PATH)
     if python_bin != None:
         return python_bin
-    if repository_ctx.attr.python_version == "3":
-        python_bin_path = repository_ctx.which("python3")
-    elif repository_ctx.attr.python_version == "2":
-        python_bin_path = repository_ctx.which("python2")
-    elif repository_ctx.attr.python_version == "default":
+    if repository_ctx.attr.python_version == "default":
         python_bin_path = repository_ctx.which("python")
     else:
-        _fail("Invalid python_version value, must be '2', '3', or 'default'.")
+        python_bin_path = repository_ctx.which("python" + repository_ctx.attr.python_version)
     if python_bin_path != None:
         return str(python_bin_path)
     _fail("Cannot find python in PATH, please make sure " +
